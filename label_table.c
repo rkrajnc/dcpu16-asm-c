@@ -11,9 +11,10 @@ void label_table_init(label_table_t * lt)
 uint16_t label_lookup(label_table_t * lt, char * label)
 {
   uint16_t address = 0;
+  int i;
 
-  // TODO: less string comparisons; hash table?
-  for (int i = 0; i < lt->length; i++)
+  /* TODO: less string comparisons; hash table? */
+  for (i = 0; i < lt->length; i++)
     if (strcmp(lt->label[i], label) == 0) address = lt->address[i];
 
   return address;
@@ -22,7 +23,7 @@ uint16_t label_lookup(label_table_t * lt, char * label)
 void label_write(label_table_t * lt, char * label, uint16_t address)
 {
   int i = lt->length++;
-  lt->label[i] = label; // TODO: malloc & copy?
+  lt->label[i] = label; /* TODO: malloc & copy? */
   lt->address[i] = address;
 }
 
@@ -42,6 +43,7 @@ uint16_t label_lookup_write(
 
 void label_table_print(label_table_t * t)
 {
-  for (int i = 0; i < t->length; i++)
+  int i;
+  for (i = 0; i < t->length; i++)
     printf("  :%s => 0x%04x\n", t->label[i], t->address[i]);
 }

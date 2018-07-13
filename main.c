@@ -9,19 +9,21 @@
 
 int main(int argc, const char ** argv)
 {
+  int i;
   char * source;
   parse_result_t * pr;
+  program_t* program;
 
   source = load_file(SOURCE_PATH);
   pr = parse(source);
   free(source);
 
-  for (int i = 0; i < pr->statement_count; i++)
+  for (i = 0; i < pr->statement_count; i++)
     print_statement(&pr->statements[i]);
 
-  program_t * program = assemble(pr);
+  program = assemble(pr);
   printf("\nProgram:");
-  for (int i = 0; i < program->length; i++)
+  for (i = 0; i < program->length; i++)
   {
     if (i % 8 == 0) printf("\n%04x:", i);
     printf(" %04x", *(program->code + i));

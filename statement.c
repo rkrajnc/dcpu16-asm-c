@@ -26,11 +26,12 @@ void statement_free_members(statement_t * s)
 
 void print_statement(statement_t * s)
 {
+  int i;
   const char * label = s->label ? s->label : "";
 
   char * o[2];
 
-  for (int i = 0; i < 2; i++)
+  for (i = 0; i < 2; i++)
     o[i] = operand_to_s(&s->operand[i]);
 
   printf(
@@ -42,6 +43,6 @@ void print_statement(statement_t * s)
     o[1]
   );
 
-  for (int i = 0; i < 2; i++)
+  for (i = 0; i < 2; i++)
     free(o[i]);
 }

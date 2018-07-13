@@ -25,18 +25,18 @@ enum basic_opcode {
   OP_IFE = 0xC,
   OP_IFN = 0xD,
   OP_IFG = 0xE,
-  OP_IFB = 0xF,
+  OP_IFB = 0xF
 };
 
 enum non_basic_opcode {
-  OP_JSR = 0x01,
+  OP_JSR = 0x01
 };
 
 typedef struct {
   char * label;
   char mnemonic[4];
-  uint8_t opcode; // 4 bits
-  uint8_t opcode_non_basic; // 6 bits
+  uint8_t opcode; /* 4 bits */
+  uint8_t opcode_non_basic; /* 6 bits */
   operand_t operand[2];
 } statement_t;
 

@@ -1,8 +1,8 @@
 #ifndef INCLUDED_TOKEN_H
 #define INCLUDED_TOKEN_H
 
-// ----------------------------------------
-// Types.
+/* ---------------------------------------- */
+/* Types. */
 
 enum token_type {
   T_COMMENT,
@@ -23,8 +23,8 @@ typedef struct {
   char * value;
 } token_t;
 
-// ----------------------------------------
-// Functions.
+/* ---------------------------------------- */
+/* Functions. */
 
 /**
  * Prints a representation of the token to STDOUT.

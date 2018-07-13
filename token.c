@@ -7,13 +7,14 @@
 
 void print_token(token_t * t)
 {
+  char label[32];
+
   if (t == 0)
   {
     printf("(null token)\n");
     return;
   }
 
-  char label[32];
   snprintf(label, 32, "%s[%u]", token_type_name(t), t->size);
   if (t->type == T_NEWLINE)
     printf("%12s\n", label);
@@ -29,8 +30,8 @@ void free_token(token_t * t)
 
 const char * token_type_name(token_t * t)
 {
-  // TODO: isn't this completely invalid?
-  // returning a pointer to inactive stack.
+  /* TODO: isn't this completely invalid? 
+  returning a pointer to inactive stack. */
   const char * names[] = {
     "COMMENT",
     "NEWLINE",

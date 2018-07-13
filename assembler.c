@@ -5,7 +5,7 @@
 #include "assembler.h"
 #include "utils.h"
 
-// TODO: dynamically grow program code allocation.
+/* TODO: dynamically grow program code allocation. */
 #define PROGRAM_MAX_LENGTH 1024
 
 static void assembler_state_init(assembler_state_t *);
@@ -14,18 +14,21 @@ static void assemble_operand(assembler_state_t *, instruction_t *, operand_t *, 
 
 program_t * assemble(parse_result_t * pr)
 {
+  statement_t * s;
+  int i;
+  uint16_t address, resolved;
+
+
   assembler_state_t state;
   assembler_state_init(&state);
 
-  statement_t * s;
-  for (int i = 0; i < pr->statement_count; i++)
+  for (i = 0; i < pr->statement_count; i++)
   {
     s = &pr->statements[i];
     assemble_statement(&state, s);
   }
 
-  uint16_t address, resolved;
-  for (int i = 0; i < state.label_refs.length; i++)
+  for (i = 0; i < state.label_refs.length; i++)
   {
     address = state.label_refs.address[i];
     resolved = label_lookup(&state.label_defs, state.label_refs.label[i]);
@@ -53,6 +56,7 @@ static void assembler_state_init(assembler_state_t * s)
 
 static void assemble_statement(assembler_state_t * state, statement_t * s)
 {
+  int i;
   instruction_t instruction;
   instruction.word[0] = s->opcode;
   instruction.word_count = 1;
@@ -79,13 +83,13 @@ static void assemble_statement(assembler_state_t * state, statement_t * s)
   }
   else
   {
-    for (int i = 0; i < 2; i++)
+    for (i = 0; i < 2; i++)
       assemble_operand(state, &instruction, &s->operand[i], i);
   }
 
-  // write assembled statement bytes to program.
-  // UNUSED uint16_t * code = state->next_word;
-  for (int i = 0; i < instruction.word_count; i++)
+  /* write assembled statement bytes to program. 
+   UNUSED uint16_t * code = state->next_word; */
+  for (i = 0; i < instruction.word_count; i++)
     *(state->next_word++) = instruction.word[i];
   state->program->length += instruction.word_count;
 }

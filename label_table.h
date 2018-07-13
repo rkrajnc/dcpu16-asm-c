@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-// TODO: dynamically allocate and grow label table.
+/* TODO: dynamically allocate and grow label table. */
 #define LABEL_TABLE_SIZE 32
 
 typedef struct {

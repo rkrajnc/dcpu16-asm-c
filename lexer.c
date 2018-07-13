@@ -18,7 +18,7 @@ token_t * read_token(lexer_state * state)
   char * right;
   char c;
 
-  // Ignore spaces.
+  /* Ignore spaces. */
   while ((c = *left) && (c == ' ')) left++;
   right = left;
 
@@ -45,7 +45,7 @@ token_t * read_token(lexer_state * state)
   }
   else if (is_digit_char(c))
   {
-    if (*(left + 1) == 'x') // look-ahead
+    if (*(left + 1) == 'x') /* look-ahead */
     {
       while (is_hex_char(c)) c = *(++right);
       type = T_INT_HEX;
@@ -108,16 +108,20 @@ token_t * next_token(lexer_state * state)
 
 token_t * peek_token(lexer_state * state, int offset)
 {
+  int ahead;
+  token_list* b;
+  int i;
+
   if (offset > TOKEN_BUFFER_SIZE)
     CRASH("offset > TOKEN_BUFFER_SIZE");
 
   if (offset <= 0)
     CRASH("offset <= 0");
 
-  int ahead = state->ahead;
-  token_list * b = state->token_buffer;
+  ahead = state->ahead;
+  b = state->token_buffer;
 
-  for (int i = 0; i < offset; i++)
+  for (i = 0; i < offset; i++)
   {
     b = b->next;
     if (i >= ahead)
@@ -132,9 +136,10 @@ token_t * peek_token(lexer_state * state, int offset)
 
 void lexer_init(lexer_state * state, char * source)
 {
-  // Circular linked list: 0 -> 1, 1 -> 2, 2 -> 3, 3 -> 0
+  int i;
+  /* Circular linked list: 0 -> 1, 1 -> 2, 2 -> 3, 3 -> 0 */
   token_list * b = (token_list *)malloc(TOKEN_BUFFER_SIZE * sizeof(token_list));
-  for (int i = 0; i < TOKEN_BUFFER_SIZE; i++)
+  for (i = 0; i < TOKEN_BUFFER_SIZE; i++)
     (b + i)->next = (b + ((i + 1) % TOKEN_BUFFER_SIZE));
 
   state->ptr = source;

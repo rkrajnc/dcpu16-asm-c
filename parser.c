@@ -23,13 +23,14 @@ static enum operand_type operand_type_for_name(const char *);
 
 parse_result_t * parse(char * source)
 {
-  // UNUSED int statement_count;
+  /* UNUSED int statement_count; */
+  statement_t* s;
   parse_result_t * pr = (parse_result_t *)malloc(sizeof(parse_result_t));
 
   lexer_state state;
   lexer_init(&state, source);
 
-  statement_t * s = pr->statements;
+  s = pr->statements;
   while (parse_statement(&state, s++))
     pr->statement_count++;
 
@@ -119,7 +120,7 @@ static void parse_operand(lexer_state * state, statement_t * s, int index)
       else if (o->type == O_NW)
       {
         operand_set_label(o, t->value, t->size);
-        o->next_word = 0; // label placeholder
+        o->next_word = 0; /* label placeholder */
       }
 
       break;
@@ -147,7 +148,7 @@ static void parse_operand_indirect(lexer_state * state, operand_t * o)
   switch (t->type)
   {
     case T_NAME:
-      // TODO: assuming register; could this be a label?
+      /* TODO: assuming register; could this be a label? */
       if (next_token(state)->type != T_BRACKET_R)
         CRASH("expected T_BRACKET_R");
       o->type = O_INDIRECT_REG;
@@ -180,12 +181,12 @@ static void parse_operand_indirect(lexer_state * state, operand_t * o)
   }
 }
 
-// TODO: move somewhere else?
+/* TODO: move somewhere else? */
 static void parse_opcode_for_mnemonic(statement_t * s)
 {
   char * m = s->mnemonic;
 
-  // basic opcodes
+  /* basic opcodes */
   if (strcmp(m, "SET") == 0) s->opcode = OP_SET;
   else if (strcmp(m, "ADD") == 0) s->opcode = OP_ADD;
   else if (strcmp(m, "SUB") == 0) s->opcode = OP_SUB;
@@ -202,7 +203,7 @@ static void parse_opcode_for_mnemonic(statement_t * s)
   else if (strcmp(m, "IFG") == 0) s->opcode = OP_IFG;
   else if (strcmp(m, "IFB") == 0) s->opcode = OP_IFB;
 
-  // non-basic opcodes
+  /* non-basic opcodes */
   else if (strcmp(m, "JSR") == 0)
   {
     s->opcode = 0x0;
@@ -220,22 +221,22 @@ static enum operand_type operand_type_for_name(const char * n)
   char c = *n;
   size_t l = strlen(n);
 
-  // general registers
+  /* general registers */
   if (l == 1 && (
       c == 'A' || c == 'B' || c == 'C' ||
       c == 'X' || c == 'Y' || c == 'Z' ||
       c == 'I' || c == 'J')) return O_REG;
 
-  // special registers
+  /* special registers */
   if (strcmp(n, "PC") == 0) return O_PC;
   if (strcmp(n, "SP") == 0) return O_SP;
   if (strcmp(n, "O") == 0) return O_O;
 
-  // stack operations
+  /* stack operations */
   if (strcmp(n, "POP") == 0) return O_POP;
   if (strcmp(n, "PEEK") == 0) return O_PEEK;
   if (strcmp(n, "PUSH") == 0) return O_PUSH;
 
-  // label
+  /* label */
   return O_NW;
 }

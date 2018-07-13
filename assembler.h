@@ -11,7 +11,7 @@
  * An assembled binary CPU instruction.
  */
 typedef struct {
-  int word_count; // 1..3
+  int word_count; /* 1..3 */
   uint16_t word[3];
 } instruction_t;
 

@@ -3,7 +3,7 @@
 
 #include "statement.h"
 
-// TODO: dynamically grow statement allocation.
+/* TODO: dynamically grow statement allocation. */
 #define PR_STATEMENTS_LIMIT 64
 
 typedef struct {

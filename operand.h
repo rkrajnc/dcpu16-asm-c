@@ -17,10 +17,10 @@ enum operand_type {
   O_NW = 0x1F,
   O_LITERAL = 0x20,
 
-  O_NULL = 0xDEAD,
+  O_NULL = 0xDEAD
 };
 
-// General purpose registers.
+/* General purpose registers. */
 enum operand_register_value {
   REG_A,
   REG_B,
@@ -29,14 +29,14 @@ enum operand_register_value {
   REG_Y,
   REG_Z,
   REG_I,
-  REG_J,
+  REG_J
 };
 
-// Special registers.
+/* Special registers. */
 enum operand_special_register {
   SREG_PC,
   SREG_SP,
-  SREG_O,
+  SREG_O
 };
 
 typedef struct {
