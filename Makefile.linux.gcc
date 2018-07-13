@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g -Wall -O0
+CFLAGS=-g -Wall -O0 -pedantic -ansi
 SHELL=sh
 DIFF=diff
 
