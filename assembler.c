@@ -84,7 +84,7 @@ static void assemble_statement(assembler_state_t * state, statement_t * s)
   }
 
   // write assembled statement bytes to program.
-  uint16_t * code = state->next_word;
+  // UNUSED uint16_t * code = state->next_word;
   for (int i = 0; i < instruction.word_count; i++)
     *(state->next_word++) = instruction.word[i];
   state->program->length += instruction.word_count;
