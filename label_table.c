@@ -1,7 +1,7 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "label_table.h"
-#include "string.h"
 
 void label_table_init(label_table_t * lt)
 {
