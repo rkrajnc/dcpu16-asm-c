@@ -23,7 +23,7 @@ static enum operand_type operand_type_for_name(const char *);
 
 parse_result_t * parse(char * source)
 {
-  int statement_count;
+  // UNUSED int statement_count;
   parse_result_t * pr = (parse_result_t *)malloc(sizeof(parse_result_t));
 
   lexer_state state;
