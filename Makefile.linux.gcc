@@ -1,0 +1,17 @@
+CC=gcc
+CFLAGS=-g -Wall -O0
+SHELL=sh
+DIFF=diff
+
+main: assembler.o file.o label_table.o lexer.o operand.o parser.o statement.o token.o utils.o main.o
+	$(CC) $(CFLAGS) -o main *.o
+
+.PHONY: all
+all: main
+
+.PHONY: clean
+clean:
+	rm -f *.o main main.exe
+
+test: main
+	$(DIFF) -u fixtures/expected.stdout <(./main)
